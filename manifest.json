@@ -1,6 +1,6 @@
 {
   	"name": "Dim My Chrome: Energy Saver",
-  	"version": "1.0.0",
+  	"version": "1.0.1",
   	"description": "Dim your Chrome, to save energy / save the planet, or just to stop nosy colleagues / bosses from being nosy!",
 	"icons": { "48": "icon48.png",
 		"128": "icon128.png" },
@@ -11,7 +11,7 @@
 		"default_title": "Dim my Chrome - click to toggle on/off"
   	},
   	"content_scripts": [{
-      	"matches": ["http://*/*"],
+      	"matches": ["http://*/*", "https://*/*"],
       	"js": ["jquery-1.4.1.min.js", "dimmer.js"],
 		"css": ["dimmer.css"]
     	}],

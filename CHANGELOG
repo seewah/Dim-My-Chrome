@@ -1,3 +1,7 @@
 1.0.0 (Feb 18, 2010)
 
 *
+
+1.0.1 (Feb 18, 2010)
+
+* Added "https://*/*" to content-script matches
