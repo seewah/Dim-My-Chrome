@@ -19,7 +19,7 @@ Note that pages opened PRIOR TO INSTALLATION WILL NOT be dimmed.
  
 == Bugs, Issues & Feature Requests
 
-This extension can dim pages on virtually all websites. However, two sites where page dimming does not work are Google Mail http://mail.google.com, and Google Chrome Extensions https://chrome.google.com/extensions due to some obscure Javascript on those pages, which I have yet to figure out. Do let me know if you have come across other sites that refuse to be dimmed out!
+This extension can dim pages on virtually all websites. However, one site where page dimming does not work is Google Chrome Extensions https://chrome.google.com/extensions (i.e. THIS PAGE) due to some obscure Javascript on the page, which I have yet to figure out. Do let me know if you have come across other sites that refuse to be dimmed out!
 
 Leave a comment on https://chrome.google.com/extensions/detail/mfnlfgpmlnpgdbodbeaaobakimnbkjfi
 or send me a tweet: http://twitter.com/seewahcheng
