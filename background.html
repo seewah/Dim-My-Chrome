@@ -1,0 +1,117 @@
+<html>
+	<head>
+		<script type="text/javascript">
+
+			/**
+ 			 * Local storage keys
+			 */
+			var LOCAL_STORAGE_KEY_DIMMER_EXT_ON = "dimmerExtOn";
+			var LOCAL_STORAGE_KEY_DIMMER_WAITING_TIME = "dimmerWaitingTime";
+			var LOCAL_STORAGE_KEY_DIMMER_OPACITY= "dimmerOpacity";
+
+			/**
+			 * defaults
+			 */
+			var DEFAULT_WAITING_TIME = 300000; //5 mins
+			var DEFAULT_OPACITY = 0.8;
+
+			var dimmerExtOn = localStorage[LOCAL_STORAGE_KEY_DIMMER_EXT_ON] != null && localStorage[LOCAL_STORAGE_KEY_DIMMER_EXT_ON] == "1";
+			var dimmerTimeoutId = null;
+
+			/**
+			 * Behavioural settings.
+			 */
+			var waitingTime = DEFAULT_WAITING_TIME;
+			var opacity = DEFAULT_OPACITY;
+			
+			/**
+			 * Saves settings
+			 */
+			function saveSettings(settings) {
+				localStorage[LOCAL_STORAGE_KEY_DIMMER_WAITING_TIME] = settings.waitingTime;
+				localStorage[LOCAL_STORAGE_KEY_DIMMER_OPACITY] = settings.opacity;
+				loadSettings();
+			}
+
+			/**
+			 * Loads settings from local storage.
+			 */
+			function loadSettings() {
+				waitingTime = localStorage[LOCAL_STORAGE_KEY_DIMMER_WAITING_TIME];
+				if (waitingTime == null || isNaN(waitingTime)) {
+					waitingTime = DEFAULT_WAITING_TIME;
+				}
+				opacity = localStorage[LOCAL_STORAGE_KEY_DIMMER_OPACITY];
+				if (opacity == null || isNaN(opacity)) {
+					opacity = DEFAULT_OPACITY;
+				}
+			}
+
+			/**
+			 * Displays extension status.
+			 */
+			function setBadgeText() {				
+				chrome.browserAction.setBadgeText({"text": dimmerExtOn ? "on" : "off"});
+			}
+
+			/**
+			 * Dims the current page.
+			 */
+			function dimPage() {
+				chrome.tabs.getSelected(null, function(tab) {
+  					chrome.tabs.sendRequest(tab.id, {"greeting": "lightsOut", "opacity": opacity});
+				});
+			}
+
+			/**
+			 * Undims the current page.
+			 */
+			function undimPage() {
+				chrome.tabs.getSelected(null, function(tab) {
+  					chrome.tabs.sendRequest(tab.id, {"greeting": "lightsOn"});
+				});
+			}
+
+			/**
+			 * Resets the timer by killing the existing Timeout (if any) and optionally (if dimmerExtOn is true) starting the Timeout.
+			 */
+			function resetTimer() {
+				if (dimmerTimeoutId != null) {
+					clearTimeout(dimmerTimeoutId);
+					dimmerTimeoutId = null;
+				}
+				if (dimmerExtOn) {
+					dimmerTimeoutId = setTimeout("dimPage()", waitingTime);
+				}
+			}
+
+			loadSettings();
+
+			setBadgeText();
+
+			resetTimer();
+
+			chrome.tabs.onSelectionChanged.addListener(function(tab) {
+				resetTimer();
+				undimPage();
+			});
+
+			chrome.browserAction.onClicked.addListener(function(tab) {
+  				dimmerExtOn = !dimmerExtOn;
+				resetTimer();
+				undimPage();
+				setBadgeText();
+				localStorage[LOCAL_STORAGE_KEY_DIMMER_EXT_ON] = dimmerExtOn ? "1" : "0";
+			});
+
+			chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
+				if (request.greeting == "resetCountdown") {
+      				resetTimer();
+				}
+  			});
+
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

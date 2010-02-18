@@ -1,0 +1,173 @@
+<html>
+	<head>
+		<style type="text/css">
+			body {
+				font-family: Georgia;
+				font-size: 40px;
+				font-style: italic;
+				background-color: #ddd;
+			}
+			select {
+				-moz-border-radius: 4px; 
+				-webkit-border-radius: 4px; 
+				font-family: Georgia;
+				font-size: 40px;
+				margin-left: 10px;
+				margin-right: 10px;
+				border: 1px solid black;
+				font-style: italic;
+			}
+			a {
+				color: black;
+			}
+			#dim {				
+				float: left;
+			}
+			#minute {			
+				float: left;
+			}
+			#minutesBy {			
+				float: left;
+			}
+			#opacity {		
+				float: left;
+			}
+			#percentage {
+				float: left;
+			}
+			#saveBtn {				
+				clear: both;
+				float: left;
+			}
+			#saveBtn input {	
+				margin-top: 20px;
+				-moz-border-radius: 4px; 
+				-webkit-border-radius: 4px; 
+				font-family: Georgia;
+				font-size: 20px;
+				margin-left: 10px;
+				margin-right: 10px;
+				border: 1px solid black;
+			}
+			#saved {				
+				float: left;
+				font-size: 20px;
+				margin-top: 22px;
+				display: none;
+			}
+			#preview {
+				clear: both;
+				position: relative;
+				width: 480px;
+				height: 404px;
+			}
+			#preview img {
+				position: absolute;
+				top: 20px;
+				left: 10px;
+			}
+			#preview #overlay {
+				position: absolute;
+				top: 96px;
+				left: 11px;
+				background: black;
+				width: 468px;
+				height: 307px;
+				z-index: 1;
+			}
+			#twitter {
+				font-style: normal;
+				margin-top: 20px;	
+				font-size: 25px;	
+			}
+		</style>
+		<script type="text/javascript" src="jquery-1.4.1.min.js"></script>
+		<script type="text/javascript">
+
+			var bgPage = chrome.extension.getBackgroundPage();
+
+			/**
+			 * Save settings
+			 */
+			function saveOptions() {
+				var waitingTime = parseFloat($("#minute").val()) * 60000;
+				var opacity = parseInt($("#opacity").val()) / 100;
+				bgPage.saveSettings({"waitingTime": waitingTime, "opacity": opacity});
+			}
+
+			/**
+			 * Hides "Settings saved" notification.
+			 */
+			function hideSaved() {
+				$("#saved").hide();
+			}
+
+			$(document).ready(function() {
+
+				$("#opacity").change(function(e) {
+					hideSaved();
+					var val = parseInt($("#opacity").val()) / 100;
+					$("#overlay").css("opacity", val);
+				});
+
+				$("#minute").change(function(e) {
+					hideSaved();
+				});
+
+				$("#saveBtn input").click(function(e) {
+					hideSaved();
+					saveOptions();
+					$("#saved").fadeIn();
+				});			
+
+				$("#minute").val(String(bgPage.waitingTime / 60000));
+				$("#opacity").val(String(bgPage.opacity * 100));
+				$("#overlay").css("opacity", bgPage.opacity);
+			});
+		</script>
+	</head>
+	<body>
+		<div id="dim">Dim down my Chrome after</div>
+		<select id="minute">
+			<option>0.1</option>
+			<option>0.5</option>
+			<option>1</option>
+			<option>2</option>
+			<option>3</option>
+			<option>4</option>
+			<option>5</option>
+			<option>10</option>
+			<option>15</option>
+			<option>20</option>
+			<option>30</option>
+			<option>40</option>
+			<option>50</option>
+			<option>60</option>
+			<option>90</option>
+			<option>120</option>
+			<option>180</option>
+			<option>240</option>
+		</select>
+		<div id="minutesBy">minutes by</div>
+		<select id="opacity">
+			<option>10</option>
+			<option>20</option>
+			<option>30</option>
+			<option>40</option>
+			<option>50</option>
+			<option>60</option>
+			<option>70</option>
+			<option>80</option>
+			<option>90</option>
+			<option>100</option>
+		</select>
+		<div id="percentage">%</div>
+		<div id="saveBtn"><input type="button" value="Save settings"/></div>
+		<div id="saved">Settings saved...</div>
+		<div id="preview">
+			<div id="overlay"></div>
+			<img src="chrome.png" width="470" height="384" />
+		</div>
+		<div id="twitter">Created by <strong>See Wah Cheng</strong><br/><a href="http://twitter.com/seewahcheng">http://twitter.com/seewahcheng</a></div>
+	</body>
+</html>

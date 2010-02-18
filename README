@@ -1,0 +1,26 @@
+== Dim My Chrome Google Chrome Extension
+ 
+A Chrome extension to dim down your Chrome pages after a specific amount of idle time (no mouse movement on the page), to save energy / save the planet, or just to stop nosy colleagues / bosses from being nosy!
+ 
+== Installation
+ 
+The extension can be installed in the standard way from 
+https://chrome.google.com/extensions/detail/mfnlfgpmlnpgdbodbeaaobakimnbkjfi
+ 
+== Usage
+ 
+Click on the extension icon to activate / deactivate the extension.
+
+When active, the extension will dim down your Chrome pages, after a specific amount of idle time (no mouse movement on the page). Simply move the mouse inside the page again to undim the page.
+
+Right-click on the extension icon to access the "options" page to change the settings. Default settings are: after 5 minutes by 80%
+
+Note that pages opened PRIOR TO INSTALLATION WILL NOT be dimmed.
+ 
+== Bugs, Issues & Feature Requests
+
+This extension can dim pages on virtually all websites. However, two sites where page dimming does not work are Google Mail http://mail.google.com, and Google Chrome Extensions https://chrome.google.com/extensions due to some obscure Javascript on those pages, which I have yet to figure out. Do let me know if you have come across other sites that refuse to be dimmed out!
+
+Leave a comment on https://chrome.google.com/extensions/detail/mfnlfgpmlnpgdbodbeaaobakimnbkjfi
+or send me a tweet: http://twitter.com/seewahcheng
+ 
