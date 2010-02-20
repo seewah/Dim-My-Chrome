@@ -9,3 +9,7 @@
 1.0.2 (Feb 20, 2010)
 
 * Added "== undefined" check when reading from localStorage
+
+1.0.3 (Feb 20, 2010)
+
+* Removed previous change. The check is not unnecessary.

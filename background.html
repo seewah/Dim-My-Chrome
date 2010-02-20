@@ -15,7 +15,7 @@
 			var DEFAULT_WAITING_TIME = 300000; //5 mins
 			var DEFAULT_OPACITY = 0.8;
 
-			var dimmerExtOn = localStorage[LOCAL_STORAGE_KEY_DIMMER_EXT_ON] != undefined && localStorage[LOCAL_STORAGE_KEY_DIMMER_EXT_ON] != null && localStorage[LOCAL_STORAGE_KEY_DIMMER_EXT_ON] == "1";
+			var dimmerExtOn = localStorage[LOCAL_STORAGE_KEY_DIMMER_EXT_ON] == "1";
 			var dimmerTimeoutId = null;
 
 			/**
@@ -38,11 +38,11 @@
 			 */
 			function loadSettings() {
 				waitingTime = localStorage[LOCAL_STORAGE_KEY_DIMMER_WAITING_TIME];
-				if (waitingTime == undefined || waitingTime == null || isNaN(waitingTime)) {
+				if (isNaN(waitingTime)) {
 					waitingTime = DEFAULT_WAITING_TIME;
 				}
 				opacity = localStorage[LOCAL_STORAGE_KEY_DIMMER_OPACITY];
-				if (opacity == undefined || opacity == null || isNaN(opacity)) {
+				if (isNaN(opacity)) {
 					opacity = DEFAULT_OPACITY;
 				}
 			}

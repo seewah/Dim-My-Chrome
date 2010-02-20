@@ -1,6 +1,6 @@
 {
   	"name": "Dim My Chrome: Energy Saver",
-  	"version": "1.0.2",
+  	"version": "1.0.3",
   	"description": "Dim your Chrome, to save energy / save the planet, or just to stop nosy colleagues / bosses from being nosy!",
 	"icons": { "48": "icon48.png",
 		"128": "icon128.png" },
